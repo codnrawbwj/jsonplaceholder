@@ -37,6 +37,7 @@ export default function Home() {
                             <option value="albums">albums</option>
                             <option value="todos">todos</option>
                             <option value="posts">posts</option>
+                            <option value="users">users</option>
                         </select>
                     </form>
                     <span>/</span>
