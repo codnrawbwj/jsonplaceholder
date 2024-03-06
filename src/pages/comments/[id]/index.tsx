@@ -1,3 +1,4 @@
+import GoBackButton from '@/components/goBackButton';
 import Link from 'next/link';
 
 export default function Comments({ data } : any) {
@@ -26,7 +27,9 @@ export default function Comments({ data } : any) {
         ))}
         {'}'}
       </div>
-      <Link href="/" className='mt-[50px] font-mono'><button>{'<--'} Go Back</button></Link>
+      <Link href="/" className='mt-[50px]'>
+        <GoBackButton />
+      </Link>
     </div>
   )
 }
