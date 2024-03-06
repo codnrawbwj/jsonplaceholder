@@ -1,11 +1,14 @@
 import GoBackButton from '@/components/goBackButton';
+import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 
-export default function Comments({ data } : any) {
+interface CommentsProps {
+  data: {
+    [key: string]: string | number; 
+  }
+}
 
-  console.log(data);
-
-  console.log(data.body.split('\n')[0])
+export default function Comments({ data } : CommentsProps) {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
@@ -16,7 +19,7 @@ export default function Comments({ data } : any) {
             {key === 'body' ? (
               <>
                 {`   ${key} : `}
-                {value.split('\n').map((line, index) => (
+                {(value as string).split('\n').map((line, index) => (
                   index === 0 ?
                     (<span key={index}>{line}<br/></span>) :
                     (<span key={index}>   {line}<br/></span>)
@@ -34,13 +37,11 @@ export default function Comments({ data } : any) {
   )
 }
 
-export async function getServerSideProps(context : any) {
+export const getServerSideProps: GetServerSideProps<CommentsProps> = async(context : any) => {
   const jsonPlaceholder = context.query;
   const res = await fetch(`https://jsonplaceholder.typicode.com/${jsonPlaceholder.category}/${jsonPlaceholder.number}`);
 
   const data = await res.json();
-  
-  console.log(Object.keys(data));
 
   if(Object.keys(data).length === 0 && data.constructor === Object) {
     return {
@@ -57,16 +58,3 @@ export async function getServerSideProps(context : any) {
     }
   }
 }
-
-        {/* <div key={data.id}>
-          <pre>   postId: {data.postId}</pre>
-          <pre>   id: {data.id}</pre>
-          <pre>   name: {data.name}</pre>
-          <pre>   email: {data.email}</pre>
-          <pre>   body:  {data.body.split('\n').map((line : number, index : number) => (
-          <span key={index}>
-            {index === 0 ? '  ' : '   '}{line}
-            <br />
-          </span>
-        ))}</pre>
-        </div> */}

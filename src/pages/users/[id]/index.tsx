@@ -1,6 +1,7 @@
+import GoBackButton from '@/components/goBackButton';
 import Link from 'next/link'
 
-export default function User({ data }) {
+export default function User({ data } : any) {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
@@ -40,15 +41,26 @@ export default function User({ data }) {
           </div>
           {'}'}
       </div>
-      <Link href="/" className='mt-[50px] font-mono'><button>{'<--'} Go Back</button></Link>
+      <Link href="/" className='mt-[50px] font-mono'>
+        <GoBackButton />  
+      </Link>
     </div>
   )
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context : any) {
   const jsonPlaceholder = context.query;
   const res = await fetch(`https://jsonplaceholder.typicode.com/${jsonPlaceholder.category}/${jsonPlaceholder.number}`);
   const data = await res.json();
+
+  if(Object.keys(data).length === 0 && data.constructor === Object) {
+    return {
+      redirect: {
+        destination : '/emptyData',
+        permanant: false,
+      }
+    }
+  }
 
   return {
     props:{
