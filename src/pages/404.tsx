@@ -12,13 +12,3 @@ export default function Custom404() {
         </div>
     )
 }
-
-export function getStaticProps() {
-    console.log("getStaticProps");
-
-    return {
-        props: {
-            data: 1,
-        }
-    }
-}

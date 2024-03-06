@@ -1,10 +1,14 @@
+import Custom404 from '@/pages/404';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 
 export default function Todos({ data }) {
 
-  const router = useRouter();
+  if(!data) {
+    return (
+      <Custom404 />
+    )
+  }
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
