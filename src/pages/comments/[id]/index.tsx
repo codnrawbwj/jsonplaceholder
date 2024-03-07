@@ -1,4 +1,4 @@
-import GoBackButton from '@/components/goBackButton';
+import GoBackButton from '@/components/GoBackButton';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 
